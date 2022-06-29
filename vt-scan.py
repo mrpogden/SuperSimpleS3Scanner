@@ -1,3 +1,6 @@
+# Super Simple S3 scanner,  @mrpogden 2022
+#https://github.com/mrpogden/SuperSimpleS3Scanner
+
 import requests
 import json
 import sys
