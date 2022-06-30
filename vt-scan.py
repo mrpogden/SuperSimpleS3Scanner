@@ -1,6 +1,3 @@
-# Super Simple S3 scanner,  @mrpogden 2022
-#https://github.com/mrpogden/SuperSimpleS3Scanner
-
 import requests
 import json
 import sys
@@ -11,6 +8,7 @@ def retrieve_objs():
     etag_list = []
     obj_key = []
     bucket_input = input("\nInput the name of the bucket you want to scan: ")
+#    bucket_input = 'my-vt-test-buck-101'
     for key in conn.list_objects(Bucket = bucket_input)['Contents']:
         obj_name = key['Key']
         obj_key.append(obj_name)
@@ -29,7 +27,7 @@ headers = {
 def vt_scan():
 
     for x,y in Etags.items():
-        print('\n', x, '\n')
+#        print('\n', x, '\n')
         r = requests.get(BASE_URL + y, headers=headers)
         data = r.json()
         #dumps the json object into an element
@@ -38,19 +36,27 @@ def vt_scan():
         #load the json to a string
         resp = json.loads(json_str)
         
-        # validate clean
+        # validate cleaneiifcc
         if 'error' not in resp:
-            #extract an element in the response
-            for i in resp['data']['attributes']['last_analysis_stats']:
-                print (i, ':', resp['data']['attributes']['last_analysis_stats'][i])
-        else:
-            #debug
-            #print(resp)
-
+            if resp['data']['attributes']
+            ['last_analysis_stats']['malicious'] < 3:   #  Fine tune how sensitive the response should be by the number of AV engines with a +tive hit.
+                result = { x:y, 'report': {}}
+                #extract elements in the response
+                for i in resp['data']['attributes']['last_analysis_stats']:
+                    z =  resp['data']['attributes']['last_analysis_stats'][i]
+                    result ['report'][i] = z
+                json_result = json.dumps(result, indent = 4)
+                print (json_result)
+        
+        #else:
+        #    #debug
+        #    print(resp)
+   
         
 
 vt_scan()
 
-total_hashes = len(Etags)
-total = str(total_hashes)
-print(f'\n', "Total hashes scanned: " + total)
+total_objects = len(Etags)
+total = str(total_objects)
+
+print(f'\n', "Total objects scanned: " + total)
