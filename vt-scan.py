@@ -18,7 +18,6 @@ def retrieve_objs():
     conn = client('s3')
     etag_list = []
     obj_key = []
-#    bucket_input = 'my-vt-test-buck-101'my-vt-test-buck-101
     for key in conn.list_objects(Bucket = bucket_input)['Contents']:
         obj_name = key['Key']
         obj_key.append(obj_name)
@@ -63,14 +62,12 @@ def vt_scan():
              # Optional, move malicious files to a seperate Quarantine bucket
         
              # Copy object to Quarantine bucket
-#               print(bucket_input, quarantine_bucket)
                 if not quarantine_bucket:
                     s3 = resource('s3')
                     copy_source = {
                     'Bucket': bucket_input,
                     'Key': x
                       }
- #                  print (copy_source)
                     s3.meta.client.copy(copy_source, quarantine_bucket, x)
             # Delete original object
                     s3c = client('s3')
