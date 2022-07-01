@@ -1,5 +1,5 @@
 # Super Simple S3 Scanner
-A Lightweight Super Simple S3 Malware scanner. - ALPHA
+A Lightweight Super Simple (Serverless) S3 Malware scanner. - ALPHA
 
 #Requirements:
 
